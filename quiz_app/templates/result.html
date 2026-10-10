@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Your results{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-xl-9">
+    <h1 class="h2">Results for {{ result.participant_name }}</h1>
+    <p class="text-secondary">{{ result.category }} &middot; {{ DIFFICULTY_LABELS.get(result.difficulty, result.difficulty|title) }} &middot; {{ result.submitted_at|dt }}</p>
+    {% if result.submission_type != 'manual' %}
+      <div class="alert alert-warning" role="status">{{ SUBMISSION_LABELS.get(result.submission_type, '') }}. Only answers saved before time ran out were counted.</div>
+    {% endif %}
+
+    <section class="score-panel" aria-label="Score summary">
+      <div class="score-main">
+        <p class="score-label mb-0">Score</p>
+        <p class="score-figure mb-0">{{ result.score|marks }}<span class="score-max"> / {{ result.max_score|marks }}</span></p>
+      </div>
+      <dl class="score-facts mb-0">
+        <div><dt>Accuracy</dt><dd>{{ result.accuracy|marks }}%</dd></div>
+        <div><dt>Correct</dt><dd>{{ result.correct }}</dd></div>
+        <div><dt>Wrong</dt><dd>{{ result.incorrect }}</dd></div>
+        <div><dt>Unanswered</dt><dd>{{ result.unanswered }}</dd></div>
+        <div><dt>Time taken</dt><dd>{{ result.time_taken_seconds|duration }}</dd></div>
+        <div><dt>Rank in this category</dt><dd>{{ rank }} of {{ rank_total }}</dd></div>
+      </dl>
+    </section>
+    <p class="small text-secondary mt-2">Accuracy is correct answers divided by total questions. Marking: correct {{ result.scoring.marks_correct|signed }}, wrong {{ (0 - result.scoring.marks_incorrect)|signed }}, unanswered {{ (0 - result.scoring.marks_unanswered)|signed }}.</p>
+
+    <h2 class="h4 mt-5">Results by category</h2>
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <caption class="visually-hidden">Category-wise results</caption>
+        <thead><tr><th scope="col">Category</th><th scope="col" class="text-end">Questions</th><th scope="col" class="text-end">Correct</th><th scope="col" class="text-end">Wrong</th><th scope="col" class="text-end">Unanswered</th><th scope="col" class="text-end">Accuracy</th><th scope="col" class="text-end">Score</th></tr></thead>
+        <tbody>
+        {% for c in result.by_category %}
+          <tr><th scope="row" class="fw-medium">{{ c.category }}</th><td class="text-end">{{ c.total }}</td><td class="text-end">{{ c.correct }}</td><td class="text-end">{{ c.incorrect }}</td><td class="text-end">{{ c.unanswered }}</td><td class="text-end">{{ c.accuracy|marks }}%</td><td class="text-end">{{ c.score|marks }}</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 my-4">
+      <a class="btn btn-primary" href="{{ url_for('public.setup') }}">Take another quiz</a>
+      <a class="btn btn-outline-primary" href="{{ url_for('public.leaderboard') }}">View leaderboard</a>
+    </div>
+
+    <h2 class="h4 mt-5">Answer review</h2>
+    <ol class="review-list list-unstyled">
+      {% for d in result.details %}
+      <li class="review-item review-{{ d.outcome }}">
+        <div class="review-head">
+          <span class="review-number">Question {{ loop.index }}</span>
+          <span class="outcome outcome-{{ d.outcome }}">
+            {% if d.outcome == 'correct' %}Correct{% elif d.outcome == 'incorrect' %}Wrong{% else %}Unanswered{% endif %}
+            ({{ d.marks|signed }})
+          </span>
+        </div>
+        <p class="review-question">{{ d.text }}</p>
+        <ul class="review-options list-unstyled">
+          {% for option in d.options %}
+            {% set is_correct = loop.index0 == d.correct_index %}
+            {% set is_chosen = loop.index0 == d.selected_index %}
+            <li class="{{ 'is-correct' if is_correct }} {{ 'is-chosen' if is_chosen }}">
+              <span class="bubble">{{ loop.index0|letter }}</span>
+              <span>{{ option }}
+                {% if is_correct %}<span class="tag tag-correct">Correct answer</span>{% endif %}
+                {% if is_chosen and not is_correct %}<span class="tag tag-wrong">Your answer</span>{% endif %}
+                {% if is_chosen and is_correct %}<span class="tag tag-correct">Your answer</span>{% endif %}
+              </span>
+            </li>
+          {% endfor %}
+        </ul>
+        {% if d.selected_index is none %}<p class="small mb-1">You did not answer this question.</p>{% endif %}
+        <p class="review-explanation mb-0"><strong>Explanation.</strong> {{ d.explanation }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>
+{% endblock %}

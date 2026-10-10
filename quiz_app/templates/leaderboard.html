@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Leaderboard{% endblock %}
+{% block content %}
+<h1 class="h2">Leaderboard</h1>
+<p class="text-secondary">Ranked by score, then accuracy. Participants with the same score and accuracy share a rank. Scores from quizzes of different lengths are best compared within the same filter.</p>
+
+<form method="get" class="row g-2 align-items-end mb-4" data-loading="Filtering">
+  <div class="col-sm-5 col-md-4">
+    <label for="f-category" class="form-label">Category</label>
+    <select id="f-category" name="category" class="form-select">
+      <option value="">All categories</option>
+      {% for c in categories %}<option value="{{ c }}" {{ 'selected' if selected.category == c }}>{{ c }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-sm-4 col-md-3">
+    <label for="f-difficulty" class="form-label">Difficulty</label>
+    <select id="f-difficulty" name="difficulty" class="form-select">
+      <option value="">Any difficulty</option>
+      {% for d in difficulties %}<option value="{{ d }}" {{ 'selected' if selected.difficulty == d }}>{{ DIFFICULTY_LABELS[d] }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-auto"><button class="btn btn-primary" type="submit">Apply filters</button></div>
+  {% if selected.category or selected.difficulty %}
+  <div class="col-auto"><a class="btn btn-link" href="{{ url_for('public.leaderboard') }}">Clear filters</a></div>
+  {% endif %}
+</form>
+
+{% if board.rows %}
+<div class="table-responsive">
+  <table class="table leaderboard align-middle">
+    <caption class="visually-hidden">Quiz leaderboard, {{ board.total }} results</caption>
+    <thead>
+      <tr>
+        <th scope="col">Rank</th><th scope="col">Participant</th>
+        <th scope="col" class="text-end">Score</th><th scope="col" class="text-end">Accuracy</th>
+        <th scope="col">Category</th><th scope="col">Difficulty</th>
+        <th scope="col" class="text-end">Time</th><th scope="col">Completed</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for r in board.rows %}
+      <tr class="{{ 'is-mine' if r.id in mine }}">
+        <th scope="row" class="rank-cell">{{ r.rank }}</th>
+        <td>{{ r.participant_name }}{% if r.id in mine %} <span class="badge text-bg-primary">You</span>{% endif %}</td>
+        <td class="text-end">{{ r.score|marks }} <span class="text-secondary">/ {{ r.max_score|marks }}</span></td>
+        <td class="text-end">{{ r.accuracy|marks }}%</td>
+        <td>{{ r.category }}</td>
+        <td>{{ DIFFICULTY_LABELS.get(r.difficulty, r.difficulty|title) }}</td>
+        <td class="text-end">{{ r.time_taken_seconds|duration }}</td>
+        <td class="text-nowrap">{{ r.submitted_at|dt }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{{ m.pagination(board.page, board.pages, 'public.leaderboard', {'category': selected.category, 'difficulty': selected.difficulty}) }}
+{% else %}
+<div class="empty-state">
+  <p class="h5">No results yet{% if selected.category or selected.difficulty %} for these filters{% endif %}.</p>
+  <p>Finish a quiz to put the first score on the board.</p>
+  <a class="btn btn-primary" href="{{ url_for('public.setup') }}">Start a quiz</a>
+</div>
+{% endif %}
+{% endblock %}

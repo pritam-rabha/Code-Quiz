@@ -1,0 +1,965 @@
+{
+  "version": 1,
+  "questions": [
+    {
+      "id": "pf-01",
+      "category": "Python Fundamentals",
+      "difficulty": "easy",
+      "text": "What is the type of the value produced by `3 / 2` in Python 3?",
+      "options": [
+        "number",
+        "decimal",
+        "float",
+        "int"
+      ],
+      "correct_index": 2,
+      "explanation": "The / operator always performs true division and returns a float, so 3 / 2 is 1.5.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "pf-02",
+      "category": "Python Fundamentals",
+      "difficulty": "easy",
+      "text": "Which keyword is used to define a named function in Python?",
+      "options": [
+        "function",
+        "define",
+        "func",
+        "def"
+      ],
+      "correct_index": 3,
+      "explanation": "Named functions are created with def. The lambda keyword creates anonymous functions.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "pf-03",
+      "category": "Python Fundamentals",
+      "difficulty": "easy",
+      "text": "What does `len(\"Python\")` return?",
+      "options": [
+        "6",
+        "5",
+        "7",
+        "It raises an error"
+      ],
+      "correct_index": 0,
+      "explanation": "The string Python contains six characters, so len returns 6.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "pf-04",
+      "category": "Python Fundamentals",
+      "difficulty": "easy",
+      "text": "Which of these built-in types is immutable?",
+      "options": [
+        "tuple",
+        "dict",
+        "set",
+        "list"
+      ],
+      "correct_index": 0,
+      "explanation": "Tuples cannot be changed after creation. Lists, dictionaries and sets are mutable.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "pf-05",
+      "category": "Python Fundamentals",
+      "difficulty": "medium",
+      "text": "What is the value of `bool([])`?",
+      "options": [
+        "None",
+        "True",
+        "False",
+        "It raises TypeError"
+      ],
+      "correct_index": 2,
+      "explanation": "Empty containers are falsy in Python, so bool of an empty list is False.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "pf-06",
+      "category": "Python Fundamentals",
+      "difficulty": "medium",
+      "text": "What does `\"ab\" * 3` evaluate to?",
+      "options": [
+        "\"ababab\"",
+        "It raises TypeError",
+        "\"ab ab ab\"",
+        "\"ab3\""
+      ],
+      "correct_index": 0,
+      "explanation": "Multiplying a string by an integer repeats it, giving ababab.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "pf-07",
+      "category": "Python Fundamentals",
+      "difficulty": "medium",
+      "text": "Which sequence does `list(range(2, 10, 3))` produce?",
+      "options": [
+        "[2, 4, 6, 8]",
+        "[3, 6, 9]",
+        "[2, 5, 8, 11]",
+        "[2, 5, 8]"
+      ],
+      "correct_index": 3,
+      "explanation": "range starts at 2, steps by 3 and stops before 10, giving 2, 5 and 8.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "pf-08",
+      "category": "Python Fundamentals",
+      "difficulty": "medium",
+      "text": "After `x = [1, 2, 3]`, `y = x` and `y.append(4)`, what does `print(x)` show?",
+      "options": [
+        "[4]",
+        "[1, 2, 3, 4]",
+        "[1, 2, 3]",
+        "It raises an error"
+      ],
+      "correct_index": 1,
+      "explanation": "Assignment copies the reference, not the list, so x and y are the same object.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "pf-09",
+      "category": "Python Fundamentals",
+      "difficulty": "hard",
+      "text": "What does `0.1 + 0.2 == 0.3` evaluate to in Python?",
+      "options": [
+        "True",
+        "It raises an error",
+        "False",
+        "None"
+      ],
+      "correct_index": 2,
+      "explanation": "Binary floating point cannot represent 0.1 and 0.2 exactly, so the sum is 0.30000000000000004.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "pf-10",
+      "category": "Python Fundamentals",
+      "difficulty": "hard",
+      "text": "What is the behaviour of a default argument such as `def add(item, bucket=[])`?",
+      "options": [
+        "The list is created once at definition time and shared across calls",
+        "A new list is created on every call",
+        "The list is reset after each call returns",
+        "It raises a SyntaxError"
+      ],
+      "correct_index": 0,
+      "explanation": "Default values are evaluated once when the function is defined, so a mutable default is shared between calls.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "pf-11",
+      "category": "Python Fundamentals",
+      "difficulty": "hard",
+      "text": "What does `print(*[1, 2, 3], sep=\"-\")` output?",
+      "options": [
+        "[1, 2, 3]",
+        "1-2-3",
+        "1 2 3",
+        "1-2-3-"
+      ],
+      "correct_index": 1,
+      "explanation": "The star unpacks the list into separate arguments and sep joins them with a hyphen.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "pf-12",
+      "category": "Python Fundamentals",
+      "difficulty": "hard",
+      "text": "What does the `nonlocal` keyword do?",
+      "options": [
+        "Makes a variable constant",
+        "Binds a name to a variable in the nearest enclosing function scope",
+        "Declares a module-level global variable",
+        "Imports a name from another module"
+      ],
+      "correct_index": 1,
+      "explanation": "nonlocal lets a nested function rebind a variable of an enclosing function instead of creating a new local.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "ds-01",
+      "category": "Data Structures",
+      "difficulty": "easy",
+      "text": "Which built-in Python type stores key-value pairs?",
+      "options": [
+        "tuple",
+        "list",
+        "set",
+        "dict"
+      ],
+      "correct_index": 3,
+      "explanation": "A dict maps unique keys to values.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "ds-02",
+      "category": "Data Structures",
+      "difficulty": "easy",
+      "text": "Which list method adds one element to the end of the list?",
+      "options": [
+        "add()",
+        "append()",
+        "push()",
+        "insert_end()"
+      ],
+      "correct_index": 1,
+      "explanation": "list.append(x) adds x at the end of the list.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "ds-03",
+      "category": "Data Structures",
+      "difficulty": "easy",
+      "text": "Which data structure follows last-in, first-out (LIFO) order?",
+      "options": [
+        "Graph",
+        "Queue",
+        "Heap",
+        "Stack"
+      ],
+      "correct_index": 3,
+      "explanation": "In a stack the most recently added element is removed first.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "ds-04",
+      "category": "Data Structures",
+      "difficulty": "easy",
+      "text": "Which built-in type does not allow duplicate elements?",
+      "options": [
+        "tuple",
+        "set",
+        "str",
+        "list"
+      ],
+      "correct_index": 1,
+      "explanation": "A set stores unique elements only.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "ds-05",
+      "category": "Data Structures",
+      "difficulty": "medium",
+      "text": "What is the average-case time complexity of looking up a key in a Python dict?",
+      "options": [
+        "O(log n)",
+        "O(1)",
+        "O(n)",
+        "O(n log n)"
+      ],
+      "correct_index": 1,
+      "explanation": "Dictionaries are hash tables, so lookups take constant time on average.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "ds-06",
+      "category": "Data Structures",
+      "difficulty": "medium",
+      "text": "Which standard library class provides an efficient double-ended queue?",
+      "options": [
+        "itertools.queue",
+        "array.array",
+        "heapq.heap",
+        "collections.deque"
+      ],
+      "correct_index": 3,
+      "explanation": "collections.deque supports O(1) appends and pops at both ends.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "ds-07",
+      "category": "Data Structures",
+      "difficulty": "medium",
+      "text": "What does `{1, 2, 3} & {2, 3, 4}` evaluate to?",
+      "options": [
+        "{1, 2, 3, 4}",
+        "{2, 3}",
+        "{2, 3, 4}",
+        "{1, 4}"
+      ],
+      "correct_index": 1,
+      "explanation": "The & operator on sets is intersection: elements present in both.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "ds-08",
+      "category": "Data Structures",
+      "difficulty": "medium",
+      "text": "Which traversal of a binary search tree visits the keys in ascending order?",
+      "options": [
+        "Postorder",
+        "Inorder",
+        "Preorder",
+        "Level-order"
+      ],
+      "correct_index": 1,
+      "explanation": "Inorder traversal visits left subtree, node, then right subtree, which yields sorted order for a BST.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "ds-09",
+      "category": "Data Structures",
+      "difficulty": "hard",
+      "text": "What is the worst-case time to search an unbalanced binary search tree with n nodes?",
+      "options": [
+        "O(1)",
+        "O(n log n)",
+        "O(n)",
+        "O(log n)"
+      ],
+      "correct_index": 2,
+      "explanation": "If keys are inserted in sorted order the tree degenerates into a linked list, so a search may visit every node.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "ds-10",
+      "category": "Data Structures",
+      "difficulty": "hard",
+      "text": "Which standard library module implements a min-heap on top of a plain list?",
+      "options": [
+        "bisect",
+        "queue.LifoQueue",
+        "collections.OrderedDict",
+        "heapq"
+      ],
+      "correct_index": 3,
+      "explanation": "heapq provides heappush and heappop that maintain the heap invariant in a list.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "ds-11",
+      "category": "Data Structures",
+      "difficulty": "hard",
+      "text": "Why can a list not be used as a dictionary key?",
+      "options": [
+        "Lists are too large to hash",
+        "Lists are not iterable",
+        "Lists cannot contain strings",
+        "Lists are mutable and therefore unhashable"
+      ],
+      "correct_index": 3,
+      "explanation": "Dictionary keys must be hashable and stable. Mutable lists do not define a hash.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "ds-12",
+      "category": "Data Structures",
+      "difficulty": "hard",
+      "text": "In a hash table with chaining, all keys collide into one bucket. What is the lookup time?",
+      "options": [
+        "O(1)",
+        "O(n)",
+        "O(n squared)",
+        "O(log n)"
+      ],
+      "correct_index": 1,
+      "explanation": "With every key in one chain, a lookup must scan the whole chain.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "oop-01",
+      "category": "Object-Oriented Programming",
+      "difficulty": "easy",
+      "text": "Which special method initialises a new instance of a class?",
+      "options": [
+        "__start__",
+        "__create__",
+        "__build__",
+        "__init__"
+      ],
+      "correct_index": 3,
+      "explanation": "__init__ runs right after an instance is created and sets up its attributes.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "oop-02",
+      "category": "Object-Oriented Programming",
+      "difficulty": "easy",
+      "text": "What does `self` represent inside an instance method?",
+      "options": [
+        "The parent class",
+        "A global variable",
+        "The class itself",
+        "The instance the method was called on"
+      ],
+      "correct_index": 3,
+      "explanation": "Python passes the instance as the first argument, conventionally named self.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "oop-03",
+      "category": "Object-Oriented Programming",
+      "difficulty": "easy",
+      "text": "How do you declare that class B inherits from class A?",
+      "options": [
+        "class B inherits A:",
+        "class B extends A:",
+        "class B(A):",
+        "class B: A"
+      ],
+      "correct_index": 2,
+      "explanation": "Base classes are listed in parentheses after the class name.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "oop-04",
+      "category": "Object-Oriented Programming",
+      "difficulty": "easy",
+      "text": "What is encapsulation?",
+      "options": [
+        "Converting an object to a string",
+        "Creating many classes from one",
+        "Running code in parallel",
+        "Bundling data with the methods that use it and limiting direct access to internal state"
+      ],
+      "correct_index": 3,
+      "explanation": "Encapsulation keeps an object's state behind a controlled interface.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "oop-05",
+      "category": "Object-Oriented Programming",
+      "difficulty": "medium",
+      "text": "What does a single leading underscore, as in `_name`, indicate by convention?",
+      "options": [
+        "The attribute is for internal use",
+        "The attribute is a constant",
+        "The attribute is name-mangled",
+        "The attribute is a static method"
+      ],
+      "correct_index": 0,
+      "explanation": "A single underscore is a convention only; Python does not enforce it.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "oop-06",
+      "category": "Object-Oriented Programming",
+      "difficulty": "medium",
+      "text": "Which decorator defines a method that receives the class instead of an instance?",
+      "options": [
+        "@staticmethod",
+        "@property",
+        "@abstractmethod",
+        "@classmethod"
+      ],
+      "correct_index": 3,
+      "explanation": "A classmethod receives the class as its first argument, conventionally cls.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "oop-07",
+      "category": "Object-Oriented Programming",
+      "difficulty": "medium",
+      "text": "What is polymorphism?",
+      "options": [
+        "Hiding internal data",
+        "Different classes offering the same interface so one call works on many types",
+        "Copying an object",
+        "Creating objects from a template"
+      ],
+      "correct_index": 1,
+      "explanation": "Polymorphism lets code call the same method on different types and get type-specific behaviour.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "oop-08",
+      "category": "Object-Oriented Programming",
+      "difficulty": "medium",
+      "text": "What does `super().__init__()` do in a subclass initialiser?",
+      "options": [
+        "Calls the parent class initialiser",
+        "Deletes the parent class",
+        "Calls only the grandparent initialiser",
+        "Creates a new parent object"
+      ],
+      "correct_index": 0,
+      "explanation": "super() gives access to the next class in the method resolution order, here to run its __init__.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "oop-09",
+      "category": "Object-Oriented Programming",
+      "difficulty": "hard",
+      "text": "In `class C(A, B)`, what determines the order in which base classes are searched for a method?",
+      "options": [
+        "The order classes appear in the file",
+        "The method resolution order (C3 linearisation)",
+        "Alphabetical order of class names",
+        "Python chooses randomly"
+      ],
+      "correct_index": 1,
+      "explanation": "Python computes the MRO using C3 linearisation; it can be inspected with C.__mro__.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "oop-10",
+      "category": "Object-Oriented Programming",
+      "difficulty": "hard",
+      "text": "Which special method makes an instance callable like a function?",
+      "options": [
+        "__run__",
+        "__call__",
+        "__invoke__",
+        "__exec__"
+      ],
+      "correct_index": 1,
+      "explanation": "Defining __call__ lets you write instance(...).",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "oop-11",
+      "category": "Object-Oriented Programming",
+      "difficulty": "hard",
+      "text": "What is the effect of defining `__slots__` in a class?",
+      "options": [
+        "Multiple inheritance is enabled",
+        "The class becomes immutable",
+        "All attributes become class-level",
+        "Instances are limited to the listed attributes and avoid a per-instance __dict__"
+      ],
+      "correct_index": 3,
+      "explanation": "__slots__ fixes the attribute names and saves memory by not creating an instance dictionary.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "oop-12",
+      "category": "Object-Oriented Programming",
+      "difficulty": "hard",
+      "text": "How does Python treat an attribute named `__secret` inside class `Account`?",
+      "options": [
+        "It becomes a class variable",
+        "It becomes truly inaccessible",
+        "It is name-mangled to _Account__secret",
+        "It raises a SyntaxError"
+      ],
+      "correct_index": 2,
+      "explanation": "Name mangling rewrites the name to reduce accidental clashes; it is not real access control.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "fw-01",
+      "category": "Flask and Web Development",
+      "difficulty": "easy",
+      "text": "Which Flask decorator registers a function as the handler for a URL?",
+      "options": [
+        "@app.path",
+        "@app.route",
+        "@app.url",
+        "@app.view"
+      ],
+      "correct_index": 1,
+      "explanation": "@app.route maps a URL rule to a view function.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "fw-02",
+      "category": "Flask and Web Development",
+      "difficulty": "easy",
+      "text": "Which Flask function renders an HTML template?",
+      "options": [
+        "render_html",
+        "show_template",
+        "render_template",
+        "template_view"
+      ],
+      "correct_index": 2,
+      "explanation": "render_template loads a Jinja2 template and fills it with the given variables.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "fw-03",
+      "category": "Flask and Web Development",
+      "difficulty": "easy",
+      "text": "Which HTTP method is normally used to submit a form that creates data?",
+      "options": [
+        "GET",
+        "POST",
+        "HEAD",
+        "TRACE"
+      ],
+      "correct_index": 1,
+      "explanation": "POST sends data in the request body and is meant for state-changing requests.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "fw-04",
+      "category": "Flask and Web Development",
+      "difficulty": "easy",
+      "text": "Which template engine does Flask use by default?",
+      "options": [
+        "Jinja2",
+        "Django templates",
+        "Mako",
+        "Cheetah"
+      ],
+      "correct_index": 0,
+      "explanation": "Flask ships with Jinja2 as its template engine.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "fw-05",
+      "category": "Flask and Web Development",
+      "difficulty": "medium",
+      "text": "Which Flask object keeps per-user data across requests in a signed cookie?",
+      "options": [
+        "session",
+        "request",
+        "g",
+        "current_app"
+      ],
+      "correct_index": 0,
+      "explanation": "The session is stored client-side in a cookie signed with SECRET_KEY.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "fw-06",
+      "category": "Flask and Web Development",
+      "difficulty": "medium",
+      "text": "What is the purpose of a CSRF token?",
+      "options": [
+        "To speed up page loads",
+        "To compress responses",
+        "To ensure state-changing requests come from the site's own forms",
+        "To encrypt stored passwords"
+      ],
+      "correct_index": 2,
+      "explanation": "A secret per-session token that attackers cannot read stops other sites from forging requests.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "fw-07",
+      "category": "Flask and Web Development",
+      "difficulty": "medium",
+      "text": "What is a Flask Blueprint used for?",
+      "options": [
+        "Configuring Gunicorn",
+        "Organising routes and related code into reusable modules",
+        "Compiling templates to Python",
+        "Defining database schemas"
+      ],
+      "correct_index": 1,
+      "explanation": "Blueprints group routes, templates and static files so large apps stay modular.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "fw-08",
+      "category": "Flask and Web Development",
+      "difficulty": "medium",
+      "text": "Which HTTP status code means the requested resource was not found?",
+      "options": [
+        "200",
+        "500",
+        "404",
+        "301"
+      ],
+      "correct_index": 2,
+      "explanation": "404 Not Found indicates the server has no resource at that URL.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "fw-09",
+      "category": "Flask and Web Development",
+      "difficulty": "hard",
+      "text": "Why store passwords with a slow, salted hash such as scrypt rather than plain SHA-256?",
+      "options": [
+        "It reduces storage size",
+        "It allows the password to be decrypted later",
+        "SHA-256 cannot hash strings",
+        "It makes brute-force attacks costly and gives identical passwords different hashes"
+      ],
+      "correct_index": 3,
+      "explanation": "A per-password salt and tunable cost make large-scale guessing expensive.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "fw-10",
+      "category": "Flask and Web Development",
+      "difficulty": "hard",
+      "text": "What does the application factory pattern, `create_app()`, make possible?",
+      "options": [
+        "Disabling Jinja2",
+        "Faster interpreter start-up",
+        "Automatic database migrations",
+        "Creating several app instances with different configurations, such as for testing"
+      ],
+      "correct_index": 3,
+      "explanation": "A factory builds the app on demand, so tests and deployments can each use their own configuration.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "fw-11",
+      "category": "Flask and Web Development",
+      "difficulty": "hard",
+      "text": "What does setting SESSION_COOKIE_HTTPONLY to True prevent?",
+      "options": [
+        "The session from expiring",
+        "JavaScript in the page from reading the session cookie",
+        "The server from reading the cookie",
+        "The cookie being sent over HTTPS"
+      ],
+      "correct_index": 1,
+      "explanation": "HttpOnly cookies are hidden from document.cookie, limiting damage from XSS.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "fw-12",
+      "category": "Flask and Web Development",
+      "difficulty": "hard",
+      "text": "Why is Gunicorn used in production instead of `flask run`?",
+      "options": [
+        "flask run supports only HTTP/0.9",
+        "Flask cannot run without Gunicorn",
+        "The built-in development server is not designed for production load or security",
+        "Gunicorn compiles Flask code to C"
+      ],
+      "correct_index": 2,
+      "explanation": "Gunicorn is a production WSGI server with worker management, unlike the development server.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "al-01",
+      "category": "Algorithms and Complexity",
+      "difficulty": "easy",
+      "text": "What is the time complexity of binary search on a sorted array of n items?",
+      "options": [
+        "O(1)",
+        "O(n)",
+        "O(n squared)",
+        "O(log n)"
+      ],
+      "correct_index": 3,
+      "explanation": "Each comparison halves the search range.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "al-02",
+      "category": "Algorithms and Complexity",
+      "difficulty": "easy",
+      "text": "Which sorting algorithm repeatedly swaps adjacent elements that are out of order?",
+      "options": [
+        "Bubble sort",
+        "Merge sort",
+        "Quick sort",
+        "Heap sort"
+      ],
+      "correct_index": 0,
+      "explanation": "Bubble sort compares neighbouring items and swaps them until the list is sorted.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "al-03",
+      "category": "Algorithms and Complexity",
+      "difficulty": "easy",
+      "text": "What must every recursive function have to avoid infinite recursion?",
+      "options": [
+        "A class",
+        "A base case",
+        "A loop",
+        "A global variable"
+      ],
+      "correct_index": 1,
+      "explanation": "The base case stops the recursion.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "al-04",
+      "category": "Algorithms and Complexity",
+      "difficulty": "easy",
+      "text": "What is the time complexity of reading a list element by index?",
+      "options": [
+        "O(1)",
+        "O(n log n)",
+        "O(n)",
+        "O(log n)"
+      ],
+      "correct_index": 0,
+      "explanation": "Lists are arrays, so indexing takes constant time.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "al-05",
+      "category": "Algorithms and Complexity",
+      "difficulty": "medium",
+      "text": "Which paradigm splits a problem into smaller subproblems, solves them and combines the results?",
+      "options": [
+        "Randomised search",
+        "Brute force",
+        "Greedy",
+        "Divide and conquer"
+      ],
+      "correct_index": 3,
+      "explanation": "Merge sort is the classic divide-and-conquer example.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "al-06",
+      "category": "Algorithms and Complexity",
+      "difficulty": "medium",
+      "text": "What is the worst-case time complexity of quicksort?",
+      "options": [
+        "O(n squared)",
+        "O(log n)",
+        "O(n log n)",
+        "O(n)"
+      ],
+      "correct_index": 0,
+      "explanation": "Consistently poor pivot choices produce unbalanced partitions and quadratic time.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "al-07",
+      "category": "Algorithms and Complexity",
+      "difficulty": "medium",
+      "text": "Which data structure does breadth-first search use to hold nodes to visit?",
+      "options": [
+        "Queue",
+        "Set",
+        "Heap",
+        "Stack"
+      ],
+      "correct_index": 0,
+      "explanation": "BFS visits nodes level by level using a first-in, first-out queue.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "al-08",
+      "category": "Algorithms and Complexity",
+      "difficulty": "medium",
+      "text": "What is memoization?",
+      "options": [
+        "Converting recursion into a loop automatically",
+        "Sorting data in place",
+        "Caching results of function calls to avoid repeated work",
+        "Releasing unused memory"
+      ],
+      "correct_index": 2,
+      "explanation": "Memoization stores computed results keyed by arguments.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "al-09",
+      "category": "Algorithms and Complexity",
+      "difficulty": "hard",
+      "text": "What is the time complexity of merge sort in the best, average and worst cases?",
+      "options": [
+        "O(n)",
+        "O(n squared)",
+        "O(log n)",
+        "O(n log n)"
+      ],
+      "correct_index": 3,
+      "explanation": "Merge sort always splits into halves and merges in linear time per level.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "al-10",
+      "category": "Algorithms and Complexity",
+      "difficulty": "hard",
+      "text": "Dijkstra's shortest-path algorithm requires which condition on edge weights?",
+      "options": [
+        "They must be integers",
+        "They must be non-negative",
+        "They must be distinct",
+        "They must all be equal"
+      ],
+      "correct_index": 1,
+      "explanation": "Negative edges can invalidate the assumption that a finalised node's distance is optimal.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "al-11",
+      "category": "Algorithms and Complexity",
+      "difficulty": "hard",
+      "text": "How does dynamic programming differ from plain divide and conquer?",
+      "options": [
+        "It works only on sorted data",
+        "It never uses recursion",
+        "It always runs in linear time",
+        "Subproblems overlap, so their results are stored and reused"
+      ],
+      "correct_index": 3,
+      "explanation": "Overlapping subproblems are solved once and cached.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    },
+    {
+      "id": "al-12",
+      "category": "Algorithms and Complexity",
+      "difficulty": "hard",
+      "text": "What is the time complexity of `for i in range(n): for j in range(i): pass`?",
+      "options": [
+        "O(n log n)",
+        "O(n)",
+        "O(n squared)",
+        "O(2 to the n)"
+      ],
+      "correct_index": 2,
+      "explanation": "The inner loop runs 0+1+...+(n-1) = n(n-1)/2 times, which is quadratic.",
+      "created_at": "2026-06-10T00:00:00+00:00",
+      "updated_at": "2026-06-10T00:00:00+00:00"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Timed Python quizzes{% endblock %}
+{% block content %}
+{% if active_attempt %}
+  <div class="alert alert-warning" role="status">
+    You have a quiz in progress.
+    <a class="alert-link" href="{{ url_for('public.quiz') }}">Resume your quiz</a>
+  </div>
+{% endif %}
+<section class="row g-5 align-items-start">
+  <div class="col-lg-6">
+    <h1 class="hero-title">Practice Python Under Exam Conditions</h1>
+    <p class="lead mt-3">Pick a subject, choose how many questions you want, and the clock starts when you do. Wrong answers can cost marks, so answer only when you are sure.</p>
+    <div class="d-flex flex-wrap gap-2 mt-4">
+      <a class="btn btn-primary btn-lg" href="{{ url_for('public.setup') }}">Start a quiz</a>
+      <a class="btn btn-outline-primary btn-lg" href="{{ url_for('public.leaderboard') }}">View leaderboard</a>
+    </div>
+
+    <h2 class="h5 mt-5">How marking works</h2>
+    <dl class="marking-rules">
+      <div><dt>Correct answer</dt><dd>{{ settings.marks_correct|signed }} marks</dd></div>
+      <div><dt>Wrong answer</dt><dd>{% if settings.negative_marking_enabled %}{{ (0 - settings.marks_incorrect)|signed }} marks{% else %}No penalty{% endif %}</dd></div>
+      <div><dt>Unanswered</dt><dd>{% if settings.penalize_unanswered and settings.marks_unanswered > 0 %}{{ (0 - settings.marks_unanswered)|signed }} marks{% else %}0 marks{% endif %}</dd></div>
+      <div><dt>Time allowed</dt><dd>{{ duration_seconds // 60 }} min for {{ settings.default_question_count }} questions</dd></div>
+    </dl>
+    <p class="text-secondary small">When time runs out your answers are submitted automatically. Longer or shorter quizzes get proportionally more or less time.</p>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="subject-sheet">
+      <h2 class="h5 sheet-title">Subjects <span class="text-secondary fw-normal">({{ total }} questions in total)</span></h2>
+      {% if categories %}
+      <ul class="list-unstyled mb-0">
+        {% for c in categories %}
+        <li class="subject-row">
+          <div>
+            <p class="subject-name mb-0">{{ c.name }}</p>
+            <p class="subject-meta mb-0">{{ c.total }} questions: {{ c.easy }} easy, {{ c.medium }} medium, {{ c.hard }} hard</p>
+          </div>
+          <a class="btn btn-sm btn-outline-primary" href="{{ url_for('public.setup', category=c.name) }}">Choose<span class="visually-hidden"> {{ c.name }}</span></a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="mb-0">No questions have been added yet. An administrator can add questions from the dashboard.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

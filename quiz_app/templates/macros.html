@@ -1,0 +1,31 @@
+{% macro pagination(page, pages, endpoint, params) %}
+  {% if pages > 1 %}
+  <nav aria-label="Pagination" class="mt-4">
+    <ul class="pagination flex-wrap mb-0">
+      <li class="page-item {{ 'disabled' if page <= 1 }}">
+        <a class="page-link" href="{{ url_for(endpoint, **dict(params, page=page - 1)) }}" {% if page <= 1 %}tabindex="-1" aria-disabled="true"{% endif %}>Previous</a>
+      </li>
+      {% for n in range(1, pages + 1) %}
+        {% if n == page %}
+          <li class="page-item active" aria-current="page"><span class="page-link">{{ n }}</span></li>
+        {% elif n == 1 or n == pages or (n - page)|abs <= 2 %}
+          <li class="page-item"><a class="page-link" href="{{ url_for(endpoint, **dict(params, page=n)) }}">{{ n }}</a></li>
+        {% elif (n - page)|abs == 3 %}
+          <li class="page-item disabled"><span class="page-link">&hellip;</span></li>
+        {% endif %}
+      {% endfor %}
+      <li class="page-item {{ 'disabled' if page >= pages }}">
+        <a class="page-link" href="{{ url_for(endpoint, **dict(params, page=page + 1)) }}" {% if page >= pages %}tabindex="-1" aria-disabled="true"{% endif %}>Next</a>
+      </li>
+    </ul>
+  </nav>
+  {% endif %}
+{% endmacro %}
+
+{% macro field_error(errors, name) %}
+  {% if errors.get(name) %}<div class="invalid-feedback d-block" id="{{ name }}-error">{{ errors[name] }}</div>{% endif %}
+{% endmacro %}
+
+{% macro difficulty_badge(value) %}
+  <span class="badge badge-{{ value }}">{{ DIFFICULTY_LABELS.get(value, value|title) }}</span>
+{% endmacro %}

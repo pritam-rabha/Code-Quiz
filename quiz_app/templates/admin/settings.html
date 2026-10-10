@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Quiz settings{% endblock %}
+{% block content %}
+<h1 class="h2">Administration</h1>
+{% include "admin/_nav.html" %}
+<div class="row">
+  <div class="col-lg-8 col-xl-7">
+    <h2 class="h4">Quiz settings</h2>
+    <p class="text-secondary">Changes apply to quizzes started after saving. Quizzes already in progress keep the settings they started with.</p>
+    {% if errors %}<div class="alert alert-danger" role="alert">Please fix the highlighted fields.</div>{% endif %}
+    <form method="post" novalidate data-loading="Saving settings">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+      <h3 class="h6 mt-3">Timing and length</h3>
+      <div class="row g-3 mb-3">
+        <div class="col-sm-6">
+          <label for="duration_minutes" class="form-label">Duration (minutes)</label>
+          <input class="form-control {{ 'is-invalid' if errors.duration_minutes }}" id="duration_minutes" name="duration_minutes" type="number" min="1" max="180" step="1" required value="{{ (form.get('duration_minutes', '') if form else (settings.duration_minutes)) }}">
+          {{ m.field_error(errors, 'duration_minutes') }}
+          <div class="form-text">Time for a quiz of the default length. Other lengths scale proportionally.</div>
+        </div>
+        <div class="col-sm-6">
+          <label for="default_question_count" class="form-label">Default question count</label>
+          <input class="form-control {{ 'is-invalid' if errors.default_question_count }}" id="default_question_count" name="default_question_count" type="number" min="1" max="100" step="1" required value="{{ (form.get('default_question_count', '') if form else (settings.default_question_count)) }}">
+          {{ m.field_error(errors, 'default_question_count') }}
+        </div>
+        <div class="col-12">
+          <label for="length_options" class="form-label">Quiz lengths offered to participants</label>
+          <input class="form-control {{ 'is-invalid' if errors.length_options }}" id="length_options" name="length_options" type="text" required value="{{ (form.get('length_options', '') if form else (settings.length_options|join(', '))) }}">
+          {{ m.field_error(errors, 'length_options') }}
+          <div class="form-text">Comma-separated whole numbers, for example 5, 10, 15, 20.</div>
+        </div>
+      </div>
+
+      <h3 class="h6 mt-4">Marking</h3>
+      <div class="row g-3 mb-3">
+        <div class="col-sm-6">
+          <label for="marks_correct" class="form-label">Marks for a correct answer</label>
+          <input class="form-control {{ 'is-invalid' if errors.marks_correct }}" id="marks_correct" name="marks_correct" type="text" inputmode="decimal" required value="{{ (form.get('marks_correct', '') if form else (settings.marks_correct|marks)) }}">
+          {{ m.field_error(errors, 'marks_correct') }}
+        </div>
+        <div class="col-sm-6">
+          <label for="marks_incorrect" class="form-label">Penalty for a wrong answer</label>
+          <input class="form-control {{ 'is-invalid' if errors.marks_incorrect }}" id="marks_incorrect" name="marks_incorrect" type="text" inputmode="decimal" required value="{{ (form.get('marks_incorrect', '') if form else (settings.marks_incorrect|marks)) }}">
+          {{ m.field_error(errors, 'marks_incorrect') }}
+          <div class="form-text">Enter a positive number; it is subtracted per wrong answer.</div>
+        </div>
+        <div class="col-12">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="negative_marking_enabled" name="negative_marking_enabled" {{ 'checked' if (settings.negative_marking_enabled if not form else form.get('negative_marking_enabled')) }}>
+            <label class="form-check-label" for="negative_marking_enabled">Enable negative marking for wrong answers</label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <label for="marks_unanswered" class="form-label">Penalty for an unanswered question</label>
+          <input class="form-control {{ 'is-invalid' if errors.marks_unanswered }}" id="marks_unanswered" name="marks_unanswered" type="text" inputmode="decimal" required value="{{ (form.get('marks_unanswered', '') if form else (settings.marks_unanswered|marks)) }}">
+          {{ m.field_error(errors, 'marks_unanswered') }}
+        </div>
+        <div class="col-12">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="penalize_unanswered" name="penalize_unanswered" {{ 'checked' if (settings.penalize_unanswered if not form else form.get('penalize_unanswered')) }}>
+            <label class="form-check-label" for="penalize_unanswered">Apply the penalty to unanswered questions (off by default)</label>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Save settings</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

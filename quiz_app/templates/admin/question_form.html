@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}{{ 'Edit question' if question else 'Add question' }}{% endblock %}
+{% block content %}
+<h1 class="h2">Administration</h1>
+{% include "admin/_nav.html" %}
+<div class="row">
+  <div class="col-lg-9 col-xl-8">
+    <h2 class="h4">{{ 'Edit question' if question else 'Add question' }}</h2>
+    {% if errors %}<div class="alert alert-danger" role="alert">Please fix the highlighted fields.</div>{% endif %}
+    <form method="post" novalidate data-loading="Saving question" id="question-admin-form">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="row g-3 mb-3">
+        <div class="col-md-7">
+          <label for="category" class="form-label">Category</label>
+          <input class="form-control {{ 'is-invalid' if errors.category }}" id="category" name="category" list="category-list" required maxlength="40" value="{{ form.category }}"
+                 {% if errors.category %}aria-invalid="true" aria-describedby="category-error"{% endif %}>
+          <datalist id="category-list">{% for c in categories %}<option value="{{ c }}">{% endfor %}</datalist>
+          {{ m.field_error(errors, 'category') }}
+          <div class="form-text">Choose an existing category or type a new one.</div>
+        </div>
+        <div class="col-md-5">
+          <label for="difficulty" class="form-label">Difficulty</label>
+          <select class="form-select {{ 'is-invalid' if errors.difficulty }}" id="difficulty" name="difficulty">
+            {% for d in difficulties %}<option value="{{ d }}" {{ 'selected' if form.difficulty == d }}>{{ DIFFICULTY_LABELS[d] }}</option>{% endfor %}
+          </select>
+          {{ m.field_error(errors, 'difficulty') }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="text" class="form-label">Question text</label>
+        <textarea class="form-control {{ 'is-invalid' if errors.text }}" id="text" name="text" rows="3" required maxlength="1000"
+                  {% if errors.text %}aria-invalid="true" aria-describedby="text-error"{% endif %}>{{ form.text }}</textarea>
+        {{ m.field_error(errors, 'text') }}
+      </div>
+
+      <fieldset class="mb-3">
+        <legend class="form-label fs-6">Options (2 to {{ max_options }}) and the correct answer</legend>
+        <div id="option-rows">
+          {% for i in range(max_options) %}
+          <div class="option-row input-group mb-2" {% if i >= form.rows %}hidden data-extra{% endif %}>
+            <div class="input-group-text">
+              <input class="form-check-input mt-0" type="radio" name="correct_index" value="{{ i }}" id="correct-{{ i }}"
+                     aria-label="Option {{ i|letter }} is the correct answer" {{ 'checked' if form.correct_index == i }}>
+            </div>
+            <label for="option-{{ i }}" class="input-group-text option-letter">{{ i|letter }}</label>
+            <input type="text" class="form-control" id="option-{{ i }}" name="option_{{ i }}" maxlength="300" value="{{ form.options[i] }}" aria-label="Option {{ i|letter }} text">
+          </div>
+          {% endfor %}
+        </div>
+        {{ m.field_error(errors, 'options') }}
+        {{ m.field_error(errors, 'correct_index') }}
+        <button type="button" class="btn btn-sm btn-outline-primary mt-1" id="add-option" {% if form.rows >= max_options %}hidden{% endif %}>Add another option</button>
+        <div class="form-text">Leave unused options blank. Select the radio button beside the correct option.</div>
+      </fieldset>
+
+      <div class="mb-4">
+        <label for="explanation" class="form-label">Explanation shown after the quiz</label>
+        <textarea class="form-control {{ 'is-invalid' if errors.explanation }}" id="explanation" name="explanation" rows="3" required maxlength="1000"
+                  {% if errors.explanation %}aria-invalid="true" aria-describedby="explanation-error"{% endif %}>{{ form.explanation }}</textarea>
+        {{ m.field_error(errors, 'explanation') }}
+      </div>
+
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">{{ 'Save changes' if question else 'Add question' }}</button>
+        <a class="btn btn-outline-secondary" href="{{ url_for('admin.questions') }}">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/admin.js') }}" defer></script>{% endblock %}

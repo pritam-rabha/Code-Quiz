@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Manage questions{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+  <h1 class="h2 mb-0">Administration</h1>
+  <a class="btn btn-primary" href="{{ url_for('admin.question_new') }}">Add question</a>
+</div>
+{% include "admin/_nav.html" %}
+
+<form method="get" class="row g-2 align-items-end mb-3" role="search" data-loading="Searching">
+  <div class="col-md-5">
+    <label for="q" class="form-label">Search questions</label>
+    <input type="search" id="q" name="q" class="form-control" value="{{ selected.q }}" maxlength="100" placeholder="Search text, options or explanation">
+  </div>
+  <div class="col-sm-6 col-md-3">
+    <label for="category" class="form-label">Category</label>
+    <select id="category" name="category" class="form-select">
+      <option value="">All categories</option>
+      {% for c in categories %}<option value="{{ c }}" {{ 'selected' if selected.category == c }}>{{ c }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-sm-6 col-md-2">
+    <label for="difficulty" class="form-label">Difficulty</label>
+    <select id="difficulty" name="difficulty" class="form-select">
+      <option value="">Any</option>
+      {% for d in difficulties %}<option value="{{ d }}" {{ 'selected' if selected.difficulty == d }}>{{ DIFFICULTY_LABELS[d] }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-auto"><button class="btn btn-primary" type="submit">Search</button></div>
+</form>
+
+<p class="text-secondary" aria-live="polite">Showing {{ questions|length }} of {{ total }} matching questions ({{ all_total }} in the bank).</p>
+
+{% if questions %}
+<div class="table-responsive">
+  <table class="table align-middle">
+    <caption class="visually-hidden">Questions</caption>
+    <thead><tr><th scope="col">Question</th><th scope="col">Category</th><th scope="col">Difficulty</th><th scope="col" class="text-end">Actions</th></tr></thead>
+    <tbody>
+    {% for q in questions %}
+      <tr>
+        <td class="question-cell">{{ q.text|truncate(140) }}</td>
+        <td>{{ q.category }}</td>
+        <td>{{ m.difficulty_badge(q.difficulty) }}</td>
+        <td class="text-end text-nowrap">
+          <a class="btn btn-sm btn-outline-primary" href="{{ url_for('admin.question_edit', question_id=q.id) }}">Edit<span class="visually-hidden"> question {{ loop.index }}</span></a>
+          <form method="post" action="{{ url_for('admin.question_delete', question_id=q.id) }}" class="d-inline"
+                data-confirm="Delete this question? This cannot be undone.">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn btn-sm btn-outline-danger">Delete<span class="visually-hidden"> question {{ loop.index }}</span></button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{{ m.pagination(page, pages, 'admin.questions', {'q': selected.q, 'category': selected.category, 'difficulty': selected.difficulty}) }}
+{% else %}
+<div class="empty-state"><p class="h5">No questions match.</p><p>Change the search or add a new question.</p></div>
+{% endif %}
+{% endblock %}

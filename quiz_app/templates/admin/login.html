@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Administrator sign in{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-7 col-lg-5">
+    <h1 class="h2 mb-3">Administrator sign in</h1>
+    {% if not configured %}
+      <div class="alert alert-warning" role="alert">
+        No administrator account is configured. Set the ADMIN_USERNAME and ADMIN_PASSWORD_HASH environment variables, or run
+        <code>python scripts/admin_tool.py create-admin</code> on the server. See the README for details.
+      </div>
+    {% endif %}
+    <form method="post" novalidate data-loading="Signing in">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="next" value="{{ next_url }}">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input class="form-control" id="username" name="username" type="text" required autocomplete="username" maxlength="60" autofocus>
+      </div>
+      <div class="mb-4">
+        <label for="password" class="form-label">Password</label>
+        <input class="form-control" id="password" name="password" type="password" required autocomplete="current-password" maxlength="200">
+      </div>
+      <button type="submit" class="btn btn-primary" {{ 'disabled' if not configured }}>Sign in</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

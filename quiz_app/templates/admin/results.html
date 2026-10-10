@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Results{% endblock %}
+{% block content %}
+<h1 class="h2">Administration</h1>
+{% include "admin/_nav.html" %}
+<p class="text-secondary">{{ board.total }} completed quiz{{ '' if board.total == 1 else 'zes' }}. Removing a result also removes it from the leaderboard.</p>
+{% if board.rows %}
+<div class="table-responsive">
+  <table class="table align-middle">
+    <caption class="visually-hidden">All results</caption>
+    <thead><tr><th scope="col">Rank</th><th scope="col">Participant</th><th scope="col" class="text-end">Score</th><th scope="col" class="text-end">Accuracy</th><th scope="col">Category</th><th scope="col">Completed</th><th scope="col" class="text-end">Actions</th></tr></thead>
+    <tbody>
+    {% for r in board.rows %}
+      <tr>
+        <th scope="row">{{ r.rank }}</th><td>{{ r.participant_name }}</td>
+        <td class="text-end">{{ r.score|marks }} / {{ r.max_score|marks }}</td><td class="text-end">{{ r.accuracy|marks }}%</td>
+        <td>{{ r.category }}</td><td class="text-nowrap">{{ r.submitted_at|dt }}</td>
+        <td class="text-end text-nowrap">
+          <a class="btn btn-sm btn-outline-primary" href="{{ url_for('public.result', result_id=r.id) }}">View<span class="visually-hidden"> result for {{ r.participant_name }}</span></a>
+          <form method="post" action="{{ url_for('admin.result_delete', result_id=r.id) }}" class="d-inline" data-confirm="Remove this result from the leaderboard?">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="btn btn-sm btn-outline-danger" type="submit">Remove<span class="visually-hidden"> result for {{ r.participant_name }}</span></button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{{ m.pagination(board.page, board.pages, 'admin.results', {}) }}
+{% else %}
+<div class="empty-state"><p class="h5">No results yet.</p><p>Completed quizzes will appear here.</p></div>
+{% endif %}
+{% endblock %}

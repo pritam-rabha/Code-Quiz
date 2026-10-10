@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Quiz in progress{% endblock %}
+{% block body_class %}quiz-page{% endblock %}
+{% block content %}
+<noscript><div class="alert alert-danger" role="alert">JavaScript is required to take a quiz. Please enable it and reload this page.</div></noscript>
+
+<div class="quiz-bar" id="quiz-bar">
+  <div>
+    <p class="quiz-context mb-0">{{ quiz.category }} &middot; {{ quiz.difficulty }}</p>
+    <p class="mb-0 fw-semibold" id="progress-text" aria-live="polite">Question 1 of {{ quiz.total }}</p>
+  </div>
+  <div class="timer" id="timer-box">
+    <span class="timer-label" id="timer-label">Time left</span>
+    <span class="timer-value" id="timer" role="timer" aria-labelledby="timer-label" aria-live="off">--:--</span>
+  </div>
+</div>
+<progress class="quiz-progress" id="progress-bar" value="0" max="{{ quiz.total }}" aria-label="Questions answered"></progress>
+<p class="visually-hidden" id="time-announcer" role="status" aria-live="polite"></p>
+
+<div class="row g-4 mt-1">
+  <div class="col-lg-8">
+    <section class="question-card" aria-labelledby="question-text">
+      <form id="question-form" onsubmit="return false">
+        <fieldset>
+          <legend class="question-text" id="question-text"></legend>
+          <p class="question-tags" id="question-tags"></p>
+          <div class="options" id="options"></div>
+        </fieldset>
+      </form>
+      <div class="d-flex flex-wrap gap-2 justify-content-between mt-4">
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-outline-primary" id="prev-btn">Previous</button>
+          <button type="button" class="btn btn-primary" id="next-btn">Next</button>
+        </div>
+        <button type="button" class="btn btn-link" id="clear-btn">Clear answer</button>
+      </div>
+      <p class="save-state" id="save-state" role="status" aria-live="polite"></p>
+    </section>
+  </div>
+
+  <div class="col-lg-4">
+    <section class="navigator" aria-labelledby="navigator-title">
+      <h2 class="h6" id="navigator-title">Questions</h2>
+      <div class="navigator-grid" id="navigator"></div>
+      <p class="small text-secondary mt-3 mb-3"><span id="answered-count">0</span> of {{ quiz.total }} answered. Filled numbers are answered.</p>
+      <button type="button" class="btn btn-success w-100" id="submit-btn">Submit quiz</button>
+    </section>
+  </div>
+</div>
+
+<div class="modal fade" id="confirm-modal" tabindex="-1" aria-labelledby="confirm-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-5" id="confirm-title">Submit your quiz?</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="confirm-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Keep working</button>
+        <button type="button" class="btn btn-success" id="confirm-submit">Submit now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="submit-overlay" id="submit-overlay" hidden>
+  <div class="submit-box" role="alertdialog" aria-labelledby="overlay-title" aria-describedby="overlay-text">
+    <div class="spinner-border text-primary" aria-hidden="true" id="overlay-spinner"></div>
+    <p class="fw-semibold mt-3 mb-1" id="overlay-title">Submitting your answers</p>
+    <p class="mb-0" id="overlay-text">Please wait. Do not close this page.</p>
+    <button type="button" class="btn btn-primary mt-3" id="retry-btn" hidden>Try again</button>
+  </div>
+</div>
+
+<script type="application/json" id="quiz-data">{{ quiz_config|tojson }}</script>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/quiz.js') }}" defer></script>{% endblock %}

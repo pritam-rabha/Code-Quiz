@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Set up your quiz{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8 col-xl-7">
+    <h1 class="h2">Set up your quiz</h1>
+    <p class="text-secondary">Your answers are saved as you go. The timer is kept by the server and starts as soon as you begin.</p>
+
+    {% if active_attempt %}
+      <div class="alert alert-warning" role="status">
+        You already have a quiz in progress. <a class="alert-link" href="{{ url_for('public.quiz') }}">Resume it</a> before starting another.
+      </div>
+    {% endif %}
+
+    {% if errors %}
+      <div class="alert alert-danger" role="alert">Please fix the highlighted fields and try again.</div>
+    {% endif %}
+
+    <form method="post" action="{{ url_for('public.start') }}" novalidate data-loading="Preparing your quiz">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+      <div class="mb-4">
+        <label for="name" class="form-label">Your name</label>
+        <input type="text" class="form-control {{ 'is-invalid' if errors.name }}" id="name" name="name" required
+               minlength="2" maxlength="50" autocomplete="name" value="{{ form.name }}"
+               {% if errors.name %}aria-invalid="true" aria-describedby="name-error"{% else %}aria-describedby="name-help"{% endif %}>
+        <div class="form-text" id="name-help">Shown on the leaderboard. Use 2 to 50 letters or numbers.</div>
+        {{ m.field_error(errors, 'name') }}
+      </div>
+
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">
+          <label for="category" class="form-label">Category</label>
+          <select class="form-select {{ 'is-invalid' if errors.category }}" id="category" name="category"
+                  {% if errors.category %}aria-invalid="true" aria-describedby="category-error"{% endif %}>
+            <option value="" {{ 'selected' if not form.category }}>All categories</option>
+            {% for c in categories %}
+              <option value="{{ c.name }}" {{ 'selected' if form.category == c.name }}>{{ c.name }} ({{ c.total }})</option>
+            {% endfor %}
+          </select>
+          {{ m.field_error(errors, 'category') }}
+        </div>
+        <div class="col-md-6">
+          <label for="difficulty" class="form-label">Difficulty</label>
+          <select class="form-select {{ 'is-invalid' if errors.difficulty }}" id="difficulty" name="difficulty"
+                  {% if errors.difficulty %}aria-invalid="true" aria-describedby="difficulty-error"{% endif %}>
+            <option value="any" {{ 'selected' if form.difficulty == 'any' }}>Any difficulty</option>
+            {% for d in difficulties %}
+              <option value="{{ d }}" {{ 'selected' if form.difficulty == d }}>{{ DIFFICULTY_LABELS[d] }}</option>
+            {% endfor %}
+          </select>
+          {{ m.field_error(errors, 'difficulty') }}
+        </div>
+      </div>
+
+      <fieldset class="mb-2">
+        <legend class="form-label fs-6">Number of questions</legend>
+        <div class="length-options" role="radiogroup">
+          {% for n in settings.length_options %}
+            <div class="length-option">
+              <input type="radio" class="length-input" name="count" id="count-{{ n }}" value="{{ n }}"
+                     {{ 'checked' if form.count|string == n|string }} required>
+              <label for="count-{{ n }}" class="length-label">
+                <span class="length-number">{{ n }}</span>
+                <span class="length-time">{{ durations[n] // 60 }}m {{ '%02d' % (durations[n] % 60) }}s</span>
+              </label>
+            </div>
+          {% endfor %}
+        </div>
+        {{ m.field_error(errors, 'count') }}
+      </fieldset>
+      <p id="availability-hint" class="form-text mb-4" aria-live="polite"></p>
+
+      <p class="marking-line">
+        Correct {{ settings.marks_correct|signed }};
+        wrong {% if settings.negative_marking_enabled %}{{ (0 - settings.marks_incorrect)|signed }}{% else %}0{% endif %};
+        unanswered {% if settings.penalize_unanswered and settings.marks_unanswered > 0 %}{{ (0 - settings.marks_unanswered)|signed }}{% else %}0{% endif %}.
+      </p>
+
+      <button type="submit" class="btn btn-primary btn-lg" {{ 'disabled' if active_attempt }}>Begin quiz</button>
+    </form>
+  </div>
+</div>
+<script type="application/json" id="availability-data">{{ availability|tojson }}</script>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/setup.js') }}" defer></script>{% endblock %}

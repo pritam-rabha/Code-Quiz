@@ -1,0 +1,6 @@
+<nav class="admin-tabs nav nav-pills mb-4" aria-label="Administration sections">
+  <a class="nav-link {{ 'active' if request.endpoint == 'admin.dashboard' }}" href="{{ url_for('admin.dashboard') }}">Overview</a>
+  <a class="nav-link {{ 'active' if request.endpoint in ('admin.questions', 'admin.question_new', 'admin.question_edit') }}" href="{{ url_for('admin.questions') }}">Questions</a>
+  <a class="nav-link {{ 'active' if request.endpoint == 'admin.settings' }}" href="{{ url_for('admin.settings') }}">Quiz settings</a>
+  <a class="nav-link {{ 'active' if request.endpoint == 'admin.results' }}" href="{{ url_for('admin.results') }}">Results</a>
+</nav>
