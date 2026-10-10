@@ -2,11 +2,20 @@
 
 A Flask-based web application for timed, category-based quizzes. Participants can answer randomly selected questions, receive scores with configurable negative marking, review explanations, and compare results on a leaderboard. Administrators can manage questions and quiz settings through a protected dashboard.
 
+
+## Live Demo
+
+**Live Application:** [Code Quiz](https://quiz-application-s8w3.onrender.com)  
+Username: admin 
+Password: 1234567890
+
+
+
 ## Project Information
 
 | Field | Details |
 |---|---|
-| Application | Code Quiz |
+| Application | [Code Quiz](https://quiz-application-s8w3.onrender.com) |
 | Author | Pritam Rabha |
 | Programme | MCA, 3rd Semester |
 | Course | Python Programming |
