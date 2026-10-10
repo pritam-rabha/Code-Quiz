@@ -6,7 +6,7 @@ A Flask-based web application for timed, category-based quizzes. Participants ca
 ## Live Demo
 
 **Live Application:** [Code Quiz](https://quiz-application-s8w3.onrender.com)  
-Username: admin 
+Username: admin     
 Password: 1234567890
 
 
