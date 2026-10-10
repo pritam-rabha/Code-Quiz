@@ -6,8 +6,7 @@ A Flask-based web application for timed, category-based quizzes. Participants ca
 ## Live Demo
 
 **Live Application:** [Code Quiz](https://quiz-application-s8w3.onrender.com)  
-Username: admin     
-Password: 1234567890
+
 
 
 
@@ -15,7 +14,7 @@ Password: 1234567890
 
 | Field | Details |
 |---|---|
-| Application | [Code Quiz](https://quiz-application-s8w3.onrender.com) |
+| Application | [Code Quiz](https://quiz-application-s8w3.onrender.com)  |
 | Author | Pritam Rabha |
 | Programme | MCA, 3rd Semester |
 | Course | Python Programming |
